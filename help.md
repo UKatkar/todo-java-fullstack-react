@@ -37,5 +37,30 @@
 
                 Happy hacking!
 
+2. Getting started with Todo App - Components
+
+    Starting with TodoApp
+
+        1. LoginComponent
+            Make Login Component Controlled
+                Link from field with state
+            Implement hard-coded authentication
+            Implement Conditional Rendering
+
+        2. WelcomeComponent
+            Implement routing
+        
+        3. ErrorComponent
+
+        4. ListTodoComponent
+
+        5. Add bootstrap & style our pages
+
+        6. HeaderComponent
+
+        7. FooterComponent
+
+        8. LogoutComponent
+
 
     
