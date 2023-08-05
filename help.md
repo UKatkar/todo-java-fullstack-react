@@ -187,6 +187,29 @@
         [import 'bootstrap/dist/css/bootstrap.min.css']
 
     Go Style your application with bootstrap....
+
+12. Sharing React state with Multiple Components with Auth Context 
+
+    // create a context 
+    // Put some state in the context
+    // Share the created context with other components
+
+    For this we create file /security/AuthContext.js
+
+    // 1. Create Context 
+        export const AuthContext = createContext()
+
+    // 2. Provide Context to all the component through AuthProvide (refer AuthContext.js)
+        function AuthProvider ({ children }) {
+            return (
+                <AuthContext.Provider>
+                    { children }
+                </AuthContext.Provider>
+            )
+        }
+
+    To access AuthContext in other component we create a useAuth use. This is a standard, we use auth in a React Project
+        export const useAuth = () => useContext(AuthContext)
     
 
 
