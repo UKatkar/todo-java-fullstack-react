@@ -211,6 +211,115 @@
     To access AuthContext in other component we create a useAuth use. This is a standard, we use auth in a React Project
         export const useAuth = () => useContext(AuthContext)
     
+13. Calling REST API from React Application
 
+    We can use 'axios' framework with react to call the REST API 
+
+    use cmd:    npm install axios 
+
+    And use axios to call REST API.
+
+    Here, we are calling REST API from http://localhost:3000  to 8000
+    these type of request is called Cross Origin Request
+    To allow all request only from http://localhost:3000 
+
+    In java spring boot app go t0 'WebMvcConfigurer' class and check method addCorsMappings()
+    we need to override addCorsMapping() method in our @SpringBootApplication class
+    as, 
+        @Bean
+        public WebMvcConfigurer corsConfigurer() {
+            return new WebMvcConfigurer() {
+                
+                public void addCorsMappings(CorsRegistry registry) {
+                    registry.addMapping("/**")
+                            .allowedMethods("*")
+                            .allowedOriginPatterns("http://localhost:3000");
+                }
+            };
+        }
+
+    Now ENJOY! calling REST APIs from http://localhost:3000
+
+14. Displaying Todos from REST API in React App
+
+    Like we called helloworld services, create file TodoApiService.js. 
+    In TodoApiService.js we make use of Axios, baseURL remains same. And we can start retriving user's todos using method below,
+
+    export const retriveAllTodosForUser =
+    (username) => apiClient.get(`/users/${username}/todos`)
+
+    Changes in component jsx file:
+
+    - Create useState 'todos', Call retriveAllTodosForUser API and set todos list to the todos useState (create one method for this).
+    - call useEffect() hook of react : it tell react that your component needs to do something after render.
+        e.g.
+            useEffect(
+                () => refreshTodos()
+            )
+    
+15. Adding delete todo feature to React App
+
+    On button click we'll call deleteTodo method. We have to pass todo id to the method here with arrow function
+
+    E.g.
+        <button className="btn btn-warning" onClick={() => deleteTodo(todo.id)}></button>
+
+16. Setting username into React Auth Context
+
+    Set username in auth context, check step 12
+
+    To get auth context parameter
+
+    1. Getting authContext 
+        const authContext = useAuth()
+
+    2. Get authcontext parameter
+        const username = authContext.username
+
+17. Creating 'Todo' React Component to display Todo page
+
+    Create update button in todo list for each todo & on 'Update' click redirect to 'TodoComponent' where we can update 'Todo Details'.
+
+    Route to the 'TodoComponent' using path 'todo/:id', add Route info in TodoApp.jsx
+
+18. Adding Formik and Moment Libraries to Display Todo React Component
+
+    cmd: 
+        npm install formik
+        npm install moment
+
+    Import and add Formik tag from 'formik'. We can use 'initialValues' prop of Formik to initialize Fields of the form. And set 'enableReinitialize' true to show initialized values in field. 
+
+19. Adding Validation to Todo React Component
+
+    - add validate = { validate } to the Formik element and create validate () method. 
+        -> check properties validateOnChange and validateOnBlur
+    - add ErrorMessage under Form to show error message. It have number of attributes. 
+
+20. Adding create new Todo feature to React
+
+    -> Add new button to Action
+
+    -> Make use of existing TodoCompoent used by update flow by adding id as -1
+        if id == -1 Add Flow else Update Flow
+
+        ---------------------------------
+
+21. Setting up axios interceptor to add authorization header
+
+    Creating single apiClient for All API services.
+
+    Create file 'ApiClient.js' in api folder. Add & export apiClient const in this file.
+
+    If login is successfull with the given username & password Authorization token, add intercepting logic in code as below, (Check AuthContext.js file)
+
+    apiClient.interceptors.request.use(
+                    (config) => {
+                        console.log('Intercepting and adding a token')
+                        config.headers.Authorization=baToken
+                        return config
+                    }
+                )
 
     
+ 
